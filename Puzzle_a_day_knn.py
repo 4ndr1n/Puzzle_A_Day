@@ -2,7 +2,12 @@ from signal import pthread_sigmask
 from turtle import Shape
 import numpy as np
 
-# Spielfeld als 3D Array implementiert. 1D = X-Achse, 2D = Y-Achse, 3D = Gefüllt oder nicht. 9 ist Spielfeldrand in der zweiten Spalte. The first row helps with counting the lines. The second row indicates the shape, that fills this sqare. The third row indicates the searched for value. The fourth row represents the row on the board. The fifth row marks the column of the board
+# Spielfeld als 3D Array implementiert. 1D = X-Achse, 2D = Y-Achse, 
+# 3D = Gefüllt oder nicht. 9 ist Spielfeldrand in der zweiten Spalte. 
+# The first row helps with counting the lines. The second row indicates
+# the shape, that fills this sqare. The third row indicates the searched for 
+# value. The fourth row represents the row on the board. The fifth row marks 
+# the column of the board.
 
 arr = np.array([[[1,0,1,1,1,0,0], 
                  [2,0,0,1,2,0,0], 
@@ -55,27 +60,13 @@ arr = np.array([[[1,0,1,1,1,0,0],
                  [49,9,0,7,7,0,0]]
                  ])
 
-# Implementierung der Figuren, die auf das Spielfeld gelegt werden können. Klassen werden verwendet wegen den verschiedenen Orientierungen, die die Formen haben können.
+# Implementierung der Figuren, die auf das Spielfeld gelegt werden können.
+# Klassen werden verwendet wegen den verschiedenen Orientierungen, die die 
+# Formen haben können. Die Figuren wurden im Uhrzeigersinn gedreht und erfasst,
+# dann gewendet wenn nötig und dann wieder im Uhrzeigersinn gedreht und erfasst.
+# Die Namen sollen die die Form der Figuren nachahmen.
+# 1 = Sshape, 2 = CShape
 
-class Sshape(object):
-    def __init__(self):
-        pass
-
-    def Form1(self):
-        self.Form1 = [[1,1,0], [0,1,0], [0,1,1]]
-        return self.Form1
-
-    def Form2(self):
-        self.Form2 = [[0,0,1], [1,1,1], [1,0,0]]
-        return self.Form2
-    
-    def Form3(self):
-        self.Form3 = [[0,1,1], [0,1,0], [1,1,0]]
-        return self.Form3
-
-    def Form4(self):
-        self.Form4 = [[1,0,0], [1,1,1], [0,0,1]]
-        return self.Form4
 
 class Cshape(object):
     def __init__(self) -> None:
@@ -83,10 +74,12 @@ class Cshape(object):
 
     def Form1(self):
         self.Form1 = [[1,1], [1,0], [1,1]]
+        self.ID = ('b','a')
         return self.Form1
     
     def Form2(self):
         self.Form2 = [[1,1,1], [1,0,1]]
+        self.ID = ('b','b')
         return self.Form2
     
     def Form3(self):
@@ -102,11 +95,13 @@ class BigLshape(object):
 
     def Form1(self):
         self.Form1 = [[1,0,0], [1,0,0], [1,1,1]]
-        return self.Form1
+        self.ID = 2,1
+        return self.Form1, self.ID
     
     def Form2(self):
         self.Form2 = [[1,1,1], [1,0,0], [1,0,0]]
-        return self.Form2
+        self.ID = 2,2
+        return self.Form2, self.ID
     
     def Form3(self):
         self.Form3 = [[1,1,1], [0,0,1], [0,0,1]]
@@ -172,17 +167,10 @@ class brokenTshape(object):
         self.Form4 = [[1,1,1,1], [0,0,1,0]]
         return self.Form8
     
-class filledOshape(object):
-    def __init__(self) -> None:
-        pass
 
-    def Form1(self):
-        self.Form1 = [[1,1], [1,1], [1,1]]
-        return self.Form1
-    
-    def Form2(self):
-        self.Form2 = [[1,1,1], [1,1,1]]
-        return self.Form2
+def FilledOShape():
+    Form1 = np.array([[1,1], [1,1], [1,1]])
+    return Form1
 
 class filledPshape(object):
     def __init__(self) -> None:
@@ -256,45 +244,85 @@ class brokenYshape(object):
         self.Form8 = [[1,1,0,0], [0,1,1,1]]
         return self.Form8
 
-class Execution():
-    def __init__(self) -> None:
-        pass
-
-
+Sshape ={1:np.array([[1,1,0], [0,1,0], [0,1,1]]),
+        2:np.array([[0,0,1], [1,1,1], [1,0,0]]),
+        3:np.array([[0,1,1], [0,1,0], [1,1,0]]),
+        4:np.array([[1,0,0], [1,1,1], [0,0,1]])}
 
 # implementierung von constraints
 
-# Counts the number of open squares. If there are only two, 1 is returned. 
-def Outputchecker():
-    count = 0
-    for x in arr:
-        w = 0
-        for y in x:
-            if (np.any(arr[0][w][1])):
-                pass
-            else:
-                count += 1
-            w += 1
-    
-    if w == 2:
-        return 0
-    else:
-        return count
-
-
-# Checks if the square is already occupied.
-def Occupancie(x, y):
-    if (np.any(arr[x][y][1])):
-        return 1
-    else:
-        pass
-
-
-# Take an input and return an output
-
-class Origin():
-    def __init__(self) -> None:
-        pass
-
-    def Input(self):
+## Counts the number of open squares. If there are only two, 1 is returned. 
+class Constraints():
+    def Endingconstraint():
+        count = 0
+        for x in arr:
+            w = 0
+            for y in x:
+                if (np.any(arr[0][w][1])):
+                    pass
+                else:
+                    count += 1
+                w += 1
         
+        if w == 2:
+            return 1
+        else:
+            return 0
+# Checks if the square is already occupied.
+    def Occupancie(x, y):
+        if (np.any(arr[x][y][1])):
+            return 1
+        else:
+            pass
+
+#  adds a shape to the matrix
+
+# def ShapeAdder(pos, shape):
+
+# Test area
+
+
+
+#for shape in range(8):
+
+    
+    # for rotation in rot:
+      #  Sshape[rotation]
+       # rot += 1
+
+x = Sshape.get(1)
+
+MonthX = 0
+MonthY = 0
+
+DayX = 2
+DayY = 0
+
+tempVal = 0
+
+dayInput = int(input("Gib den gesuchten Tag ein(DD)"))
+monthInput = int(input("Gib den gesuchten Monat an(MM)"))
+
+
+if type(dayInput) == int:
+    while dayInput > 7:
+        dayInput -= 7
+        DayX += 1
+        DayY = dayInput
+        print(dayInput)
+    dayInput -= 1
+    DayY=dayInput
+
+if type(monthInput) == int:
+    if monthInput >6:
+        MonthX += 1
+        TempVal=monthInput - 7
+        MonthY = TempVal
+    else:
+        monthInput -= 1
+        MonthY=monthInput
+
+arr[MonthX][MonthY][1]=9
+arr[DayX][DayY][1]=9
+
+print(arr)
