@@ -277,9 +277,10 @@ def Outputchecker():
             w += 1
     
     if w == 2:
-        return 1
-    else:
         return 0
+    else:
+        return count
+
 
 # Checks if the square is already occupied.
 def Occupancie(x, y):
@@ -287,3 +288,13 @@ def Occupancie(x, y):
         return 1
     else:
         pass
+
+
+# Take an input and return an output
+
+class Origin():
+    def __init__(self) -> None:
+        pass
+
+    def Input(self):
+        
