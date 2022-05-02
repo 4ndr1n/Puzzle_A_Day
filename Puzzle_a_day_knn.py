@@ -320,7 +320,6 @@ if type(dayInput) == int:
     DayY=dayInput
     dchecker = True
 
-
 if type(monthInput) == int:
     if monthInput >6:
         MonthX += 1
@@ -347,9 +346,10 @@ ap0 = absolutePlace[0]
 
 ap1 = absolutePlace[1]
 
+m = 0
+
 for x in range(MShape[1]):
     n = 0
-    m = 0
     for y in range(MShape[0]):
         storage.append(Constraints.Occupancie((ap0+m),(ap1+n)))
         n += 1
