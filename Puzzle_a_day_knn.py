@@ -37,7 +37,7 @@ absolutePlace = (ysis,xsis,1)
 # the shape, that fills this sqare. The third row indicates formtype. The fourth row represents the row on the board. The fifth row marks 
 # the column of the board.
 
-arr = np.array([[[1,1,1,1,1,0,0], 
+arr = np.array([[[1,0,0,1,1,0,0], 
                  [2,0,0,1,2,0,0], 
                  [3,0,0,1,3,0,0], 
                  [4,0,0,1,4,0,0], 
@@ -95,105 +95,29 @@ arr = np.array([[[1,1,1,1,1,0,0],
 # Die Namen sollen die die Form der Figuren nachahmen.
 # 1 = Sshape, 2 = CShape
 
+Cshape ={1:np.array([[1,1], [1,0], [1,1]]),
+        2:np.array([[1,1,1], [1,0,1]]),
+        3:np.array([[1,1], [0,1], [1,1]]),
+        4:np.array([[1,0,1], [1,1,1]])}
 
-class Cshape(object):
-    def __init__(self) -> None:
-        pass
+BigLshape ={1:np.array([[1,0,0], [1,0,0], [1,1,1]]),
+            2:np.array([[1,1,1], [1,0,0], [1,0,0]]),
+            3:np.array([[1,1,1], [0,0,1], [0,0,1]]),
+            4:np.array([[0,0,1], [0,0,1], [1,1,1]])}
 
-    def Form1(self):
-        self.Form1 = [[1,1], [1,0], [1,1]]
-        self.ID = ('b','a')
-        return self.Form1
-    
-    def Form2(self):
-        self.Form2 = [[1,1,1], [1,0,1]]
-        self.ID = ('b','b')
-        return self.Form2
-    
-    def Form3(self):
-        self.Form3 = [[1,1], [0,1], [1,1]]
-        return self.Form3
-    def Form4(self):
-        self.Form4 = [[1,0,1], [1,1,1]]
-        return self.Form4
+smallLshape ={1:np.array([[1,0], [1,0], [1,0] [1,1]]),
+              2:np.array([[1,1,1,1], [1,0,0,0]]),
+              3:np.array([[1,1], [0,1], [0,1],[0,1]]),
+              4:np.array([[0,0,0,1], [1,1,1,1]])}
 
-class BigLshape(object):
-    def __init__(self) -> None:
-        pass
-
-    def Form1(self):
-        self.Form1 = [[1,0,0], [1,0,0], [1,1,1]]
-        self.ID = 2,1
-        return self.Form1, self.ID
-    
-    def Form2(self):
-        self.Form2 = [[1,1,1], [1,0,0], [1,0,0]]
-        self.ID = 2,2
-        return self.Form2, self.ID
-    
-    def Form3(self):
-        self.Form3 = [[1,1,1], [0,0,1], [0,0,1]]
-        return self.Form3
-
-    def Form4(self):
-        self.Form4 = [[0,0,1], [0,0,1],[1,1,1]]
-        return self.Form4
-
-class smallLshape(object):
-    def __init__(self) -> None:
-        pass
-
-    def Form1(self):
-        self.Form1 = [[1,0], [1,0], [1,1]]
-        return self.Form1
-    
-    def Form2(self):
-        self.Form2 = [[1,1,1,1], [1,0,0,0]]
-        return self.Form2
-    
-    def Form3(self):
-        self.Form3 = [[1,1], [0,1], [0,1],[0,1]]
-        return self.Form3
-
-    def Form4(self):
-        self.Form4 = [[0,0,0,1], [1,1,1,1]]
-        return self.Form4
-
-class brokenTshape(object):
-    def __init__(self) -> None:
-        pass
-    
-    def Form1(self):
-        self.Form1 = [[0,1], [1,1], [0,1], [0,1]]
-        return self.Form1
-    
-    def Form2(self):
-        self.Form2 = [[0,0,1,0], [1,1,1,1]]
-        return self.Form2
-    
-    def Form3(self):
-        self.Form3 = [[1,0], [1,0], [1,1], [1,0]]
-        return self.Form3
-
-    def Form4(self):
-        self.Form4 = [[1,1,1,1], [0,1,0,0]]
-        return self.Form4
-
-    def Form5(self):
-        self.Form5 = [[1,0], [1,1], [1,0], [1,0]]
-        return self.Form5
-
-    def Form6(self):
-        self.Form6 = [[0,1], [0,1], [1,1], [1,0]]
-        return self.Form6
-
-    def Form7(self):
-        self.Form2 = [[0,1,0,0], [1,1,1,1]]
-        return self.Form7
-    
-    def Form8(self):
-        self.Form4 = [[1,1,1,1], [0,0,1,0]]
-        return self.Form8
+brokenTshape ={1:np.array([[0,1], [1,1], [0,1], [0,1]]),
+        2:np.array([[0,0,1,0], [1,1,1,1]]),
+        3:np.array([[1,0], [1,0], [1,1], [1,0]]),
+        4:np.array([[1,1,1,1], [0,1,0,0]]),
+        5:np.array([[1,0], [1,1], [1,0], [1,0]]),
+        6:np.array([[0,1], [0,1], [1,1], [1,0]]),
+        7:np.array([[0,1,0,0], [1,1,1,1]]),
+        8:np.array([[1,1,1,1], [0,0,1,0]])}
 
 def FilledOShape():
     Form1 = np.array([[1,1], [1,1], [1,1]])
@@ -332,7 +256,9 @@ if type(monthInput) == int:
 
 #  changes the value to 9 to indicate the searched for date.
 arr[MonthX][MonthY][2]=9
+arr[MonthX][MonthY][1]=1
 arr[DayX][DayY][2]=9
+arr[MonthX][MonthY][1]=1
 
 # generates the list of the shapes and changes it acordingly.
 
