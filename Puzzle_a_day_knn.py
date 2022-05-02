@@ -1,12 +1,40 @@
+from ast import For
+from pyexpat import XML_PARAM_ENTITY_PARSING_ALWAYS
 from signal import pthread_sigmask
 from turtle import Shape
 import numpy as np
+import pandas as pd
+
+# Variables
+MonthX = 0
+MonthY = 0
+
+DayX = 2
+DayY = 0
+
+tempVal = 0
+
+xsis = 0
+ysis = 0
+
+storage = []
+
+passcond = 0
+
+# User Input and formatting for the array
+
+def dayInput():
+    dayInput = int(input("Gib den gesuchten Tag ein(DD)"))
+
+def monthInput():
+    monthInput = int(input("Gib den gesuchten Monat an(MM)"))
+
+absolutePlace = (1,ysis,xsis)
 
 # Spielfeld als 3D Array implementiert. 1D = X-Achse, 2D = Y-Achse, 
 # 3D = Gefüllt oder nicht. 9 ist Spielfeldrand in der zweiten Spalte. 
 # The first row helps with counting the lines. The second row indicates
-# the shape, that fills this sqare. The third row indicates the searched for 
-# value. The fourth row represents the row on the board. The fifth row marks 
+# the shape, that fills this sqare. The third row indicates formtype. The fourth row represents the row on the board. The fifth row marks 
 # the column of the board.
 
 arr = np.array([[[1,0,1,1,1,0,0], 
@@ -15,14 +43,14 @@ arr = np.array([[[1,0,1,1,1,0,0],
                  [4,0,0,1,4,0,0], 
                  [5,0,0,1,5,0,0], 
                  [6,0,0,1,6,0,0], 
-                 [7,9,0,1,7,0,0]],
+                 [7,1,9,1,7,0,0]],
                 [[8,0,0,2,1,0,0], 
                  [9,0,0,2,2,0,0], 
                  [10,0,0,2,3,0,0], 
                  [11,0,0,2,4,0,0], 
                  [12,0,0,2,5,0,0], 
                  [13,0,0,2,6,0,0], 
-                 [14,9,0,2,7,0,0]], 
+                 [14,1,9,2,7,0,0]], 
                 [[15,0,0,3,1,0,0], 
                  [16,0,0,3,2,0,0], 
                  [17,0,0,3,3,0,0], 
@@ -54,10 +82,10 @@ arr = np.array([[[1,0,1,1,1,0,0],
                 [[43,0,0,7,1,0,0], 
                  [44,0,0,7,2,0,0], 
                  [45,0,0,7,3,0,0], 
-                 [46,9,0,7,4,0,0], 
-                 [47,9,0,7,5,0,0], 
-                 [48,9,0,7,6,0,0], 
-                 [49,9,0,7,7,0,0]]
+                 [46,1,9,7,4,0,0], 
+                 [47,1,9,7,5,0,0], 
+                 [48,1,9,7,6,0,0], 
+                 [49,1,9,7,7,0,0]]
                  ])
 
 # Implementierung der Figuren, die auf das Spielfeld gelegt werden können.
@@ -166,7 +194,6 @@ class brokenTshape(object):
     def Form8(self):
         self.Form4 = [[1,1,1,1], [0,0,1,0]]
         return self.Form8
-    
 
 def FilledOShape():
     Form1 = np.array([[1,1], [1,1], [1,1]])
@@ -263,7 +290,6 @@ class Constraints():
                 else:
                     count += 1
                 w += 1
-        
         if w == 2:
             return 1
         else:
@@ -273,56 +299,70 @@ class Constraints():
         if (np.any(arr[x][y][1])):
             return 1
         else:
-            pass
+            return 0
+    def Occcheck(Storage):
+        for x in Storage:
+            for y in x:
+                if y == 2:
+                    return False
+                else:
+                    return True
 
-#  adds a shape to the matrix
-
-# def ShapeAdder(pos, shape):
-
-# Test area
-
-
-
-#for shape in range(8):
-
-    
-    # for rotation in rot:
-      #  Sshape[rotation]
-       # rot += 1
-
-x = Sshape.get(1)
-
-MonthX = 0
-MonthY = 0
-
-DayX = 2
-DayY = 0
-
-tempVal = 0
-
-dayInput = int(input("Gib den gesuchten Tag ein(DD)"))
-monthInput = int(input("Gib den gesuchten Monat an(MM)"))
-
+dayInput()
+monthInput()
 
 if type(dayInput) == int:
     while dayInput > 7:
         dayInput -= 7
         DayX += 1
         DayY = dayInput
-        print(dayInput)
     dayInput -= 1
     DayY=dayInput
+    dchecker = True
+
 
 if type(monthInput) == int:
     if monthInput >6:
         MonthX += 1
         TempVal=monthInput - 7
         MonthY = TempVal
+        mchecker = True
     else:
         monthInput -= 1
         MonthY=monthInput
 
-arr[MonthX][MonthY][1]=9
-arr[DayX][DayY][1]=9
+#  changes the value to 9 to indicate the searched for date.
+arr[MonthX][MonthY][2]=9
+arr[DayX][DayY][2]=9
 
-print(arr)
+# generates the list of the shapes and changes it acordingly.
+
+
+#  adds a shape to the matrix
+Shape = Sshape.get(1)
+
+MShape = Shape.shape
+
+for x in range(MShape[1]):
+    n = 0
+    m = 0
+    for y in range(MShape[0]):
+        storage.append(Constraints.Occupancie((absolutePlace[0]+m),(absolutePlace[1]+n)))
+        n += 1
+    m+=1
+
+temparray = np.array(storage)
+Storage = temparray.reshape(MShape[1],MShape[0]) #  Might need to be flipped around(0,1 and not 1,0)
+
+# compares the shape of the two arrays to make sure they line up.
+assert Storage.shape == Shape.shape
+
+Storage += Shape
+
+passcond = Constraints.Occcheck(Storage)
+
+
+print(Storage,passcond)
+
+
+# Test area
