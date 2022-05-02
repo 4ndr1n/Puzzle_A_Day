@@ -186,14 +186,12 @@ if type(dayInput) == int:
         DayY = dayInput
     dayInput -= 1
     DayY=dayInput
-    dchecker = True
 
 if type(monthInput) == int:
     if monthInput >6:
         MonthX += 1
-        TempVal=monthInput - 7
-        MonthY = TempVal
-        mchecker = True
+        monthInput -= monthInput - 7
+        MonthY = monthInput
     else:
         monthInput -= 1
         MonthY=monthInput
@@ -202,13 +200,17 @@ if type(monthInput) == int:
 arr[MonthX][MonthY][2]=9
 arr[MonthX][MonthY][1]=1
 arr[DayX][DayY][2]=9
-arr[MonthX][MonthY][1]=1
-
+arr[DayX][DayY][1]=1
+print(arr)
 # generates the list of the shapes and changes it acordingly.
+print(DayX,DayY,MonthX,MonthY)
+ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
 
 
 #  adds a shape to the matrix
-Shape = Sshape.get(1)
+n = 0
+Shape = ShapeList[n]
+Shape = Shape.get(1)
 
 MShape = Shape.shape
 
