@@ -29,7 +29,7 @@ def dayInput():
 def monthInput():
     monthInput = int(input("Gib den gesuchten Monat an(MM)"))
 
-absolutePlace = (1,ysis,xsis)
+absolutePlace = (ysis,xsis,1)
 
 # Spielfeld als 3D Array implementiert. 1D = X-Achse, 2D = Y-Achse, 
 # 3D = Gefüllt oder nicht. 9 ist Spielfeldrand in der zweiten Spalte. 
@@ -37,7 +37,7 @@ absolutePlace = (1,ysis,xsis)
 # the shape, that fills this sqare. The third row indicates formtype. The fourth row represents the row on the board. The fifth row marks 
 # the column of the board.
 
-arr = np.array([[[1,0,1,1,1,0,0], 
+arr = np.array([[[1,1,1,1,1,0,0], 
                  [2,0,0,1,2,0,0], 
                  [3,0,0,1,3,0,0], 
                  [4,0,0,1,4,0,0], 
@@ -296,7 +296,7 @@ class Constraints():
             return 0
 # Checks if the square is already occupied.
     def Occupancie(x, y):
-        if (np.any(arr[x][y][1])):
+        if arr[x][y][1] == 1:
             return 1
         else:
             return 0
@@ -343,17 +343,22 @@ Shape = Sshape.get(1)
 
 MShape = Shape.shape
 
+ap0 = absolutePlace[0]
+
+ap1 = absolutePlace[1]
+
 for x in range(MShape[1]):
     n = 0
     m = 0
     for y in range(MShape[0]):
-        storage.append(Constraints.Occupancie((absolutePlace[0]+m),(absolutePlace[1]+n)))
+        storage.append(Constraints.Occupancie((ap0+m),(ap1+n)))
         n += 1
     m+=1
 
+print(storage)
 temparray = np.array(storage)
-Storage = temparray.reshape(MShape[1],MShape[0]) #  Might need to be flipped around(0,1 and not 1,0)
-
+Storage = temparray.reshape(MShape[0],MShape[1])
+print(Storage)
 # compares the shape of the two arrays to make sure they line up.
 assert Storage.shape == Shape.shape
 
@@ -363,6 +368,7 @@ passcond = Constraints.Occcheck(Storage)
 
 
 print(Storage,passcond)
+
 
 
 # Test area
