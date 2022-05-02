@@ -101,14 +101,14 @@ Cshape ={1:np.array([[1,1], [1,0], [1,1]]),
         4:np.array([[1,0,1], [1,1,1]])}
 
 BigLshape ={1:np.array([[1,0,0], [1,0,0], [1,1,1]]),
-            2:np.array([[1,1,1], [1,0,0], [1,0,0]]),
-            3:np.array([[1,1,1], [0,0,1], [0,0,1]]),
-            4:np.array([[0,0,1], [0,0,1], [1,1,1]])}
+        2:np.array([[1,1,1], [1,0,0], [1,0,0]]),
+        3:np.array([[1,1,1], [0,0,1], [0,0,1]]),
+        4:np.array([[0,0,1], [0,0,1], [1,1,1]])}
 
 smallLshape ={1:np.array([[1,0], [1,0], [1,0] [1,1]]),
-              2:np.array([[1,1,1,1], [1,0,0,0]]),
-              3:np.array([[1,1], [0,1], [0,1],[0,1]]),
-              4:np.array([[0,0,0,1], [1,1,1,1]])}
+        2:np.array([[1,1,1,1], [1,0,0,0]]),
+        3:np.array([[1,1], [0,1], [0,1],[0,1]]),
+        4:np.array([[0,0,0,1], [1,1,1,1]])}
 
 brokenTshape ={1:np.array([[0,1], [1,1], [0,1], [0,1]]),
         2:np.array([[0,0,1,0], [1,1,1,1]]),
@@ -119,81 +119,26 @@ brokenTshape ={1:np.array([[0,1], [1,1], [0,1], [0,1]]),
         7:np.array([[0,1,0,0], [1,1,1,1]]),
         8:np.array([[1,1,1,1], [0,0,1,0]])}
 
-def FilledOShape():
-    Form1 = np.array([[1,1], [1,1], [1,1]])
-    return Form1
+FilledOShape ={1:np.array([[1,1], [1,1], [1,1]]),
+        2:np.array([[1,1,1],[1,1,1]])}
 
-class filledPshape(object):
-    def __init__(self) -> None:
-        pass
-    
-    def Form1(self):
-        self.Form1 = [[1,1], [1,1], [1,0]]
-        return self.Form1
-    
-    def Form2(self):
-        self.Form2 = [[1,1,1], [0,1,1]]
-        return self.Form2
-    
-    def Form3(self):
-        self.Form3 = [[0,1], [1,1], [1,1]]
-        return self.Form3
+filledPshape ={1:np.array([[1,1], [1,1], [1,0]]),
+        2:np.array([[1,1,1], [0,1,1]]),
+        3:np.array([[0,1], [1,1], [1,1]]),
+        4:np.array([[1,1,0], [1,1,1]]),
+        5:np.array([[1,1], [1,1], [0,1]]),
+        6:np.array([[0,1,1], [1,1,1]]),
+        7:np.array([[1,0], [1,1], [1,1]]),
+        8:np.array([[1,1,1], [1,1,0]])}
 
-    def Form4(self):
-        self.Form4 = [[1,1,0], [1,1,1]]
-        return self.Form4
-    
-    def Form5(self):
-        self.Form5 = [[1,1], [1,1], [0,1]]
-        return self.Form5
-    
-    def Form6(self):
-        self.Form6 = [[0,1,1], [1,1,1]]
-        return self.Form6
-    
-    def Form7(self):
-        self.Form7 = [[1,0], [1,1], [1,1]]
-        return self.Form7
-
-    def Form8(self):
-        self.Form8 = [[1,1,1], [1,1,0]]
-        return self.Form8
-
-class brokenYshape(object):
-    def __init__(self) -> None:
-        pass
-
-    def Form1(self):
-        self.Form1 = [[1,0], [1,1], [0,1], [0,1]]
-        return self.Form1
-    
-    def Form2(self):
-        self.Form2 = [[0,0,1,1], [1,1,1,0]]
-        return self.Form2
-    
-    def Form3(self):
-        self.Form3 = [[1,0], [1,0], [1,1], [0,1]]
-        return self.Form3
-
-    def Form4(self):
-        self.Form4 = [[0,1,1,1], [1,1,0,0]]
-        return self.Form4
-    
-    def Form5(self):
-        self.Form5 = [[0,1], [1,1], [1,0], [1,0]]
-        return self.Form5
-    
-    def Form6(self):
-        self.Form6 = [[1,1,1,0], [0,0,1,1]]
-        return self.Form6
-    
-    def Form7(self):
-        self.Form7 = [[0,1], [0,1], [1,1], [1,0]]
-        return self.Form7
-
-    def Form8(self):
-        self.Form8 = [[1,1,0,0], [0,1,1,1]]
-        return self.Form8
+brokenYshape ={1:np.array([[1,0], [1,1], [0,1], [0,1]]),
+        2:np.array([[0,0,1,1], [1,1,1,0]]),
+        3:np.array([[1,0], [1,0], [1,1], [0,1]]),
+        4:np.array([[0,1,1,1], [1,1,0,0]]),
+        5:np.array([[0,1], [1,1], [1,0], [1,0]]),
+        6:np.array([[1,1,1,0], [0,0,1,1]]),
+        7:np.array([[0,1], [0,1], [1,1], [1,0]]),
+        8:np.array([[1,1,0,0], [0,1,1,1]])}
 
 Sshape ={1:np.array([[1,1,0], [0,1,0], [0,1,1]]),
         2:np.array([[0,0,1], [1,1,1], [1,0,0]]),
