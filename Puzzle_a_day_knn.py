@@ -89,11 +89,10 @@ arr = np.array([[[1,0,0,1,1,0,0],
                  ])
 
 # Implementierung der Figuren, die auf das Spielfeld gelegt werden können.
-# Klassen werden verwendet wegen den verschiedenen Orientierungen, die die 
-# Formen haben können. Die Figuren wurden im Uhrzeigersinn gedreht und erfasst,
+# Dictionaries werden verwendet wegen den verschiedenen Orientierungen, die die 
+# Figuren haben können. Die Figuren wurden im Uhrzeigersinn gedreht und erfasst,
 # dann gewendet wenn nötig und dann wieder im Uhrzeigersinn gedreht und erfasst.
 # Die Namen sollen die die Form der Figuren nachahmen.
-# 1 = Sshape, 2 = CShape
 
 Cshape ={1:np.array([[1,1], [1,0], [1,1]]),
         2:np.array([[1,1,1], [1,0,1]]),
@@ -105,7 +104,7 @@ BigLshape ={1:np.array([[1,0,0], [1,0,0], [1,1,1]]),
         3:np.array([[1,1,1], [0,0,1], [0,0,1]]),
         4:np.array([[0,0,1], [0,0,1], [1,1,1]])}
 
-smallLshape ={1:np.array([[1,0], [1,0], [1,0] [1,1]]),
+smallLshape ={1:np.array([[1,0], [1,0], [1,0], [1,1]]),
         2:np.array([[1,1,1,1], [1,0,0,0]]),
         3:np.array([[1,1], [0,1], [0,1],[0,1]]),
         4:np.array([[0,0,0,1], [1,1,1,1]])}
@@ -239,7 +238,5 @@ passcond = Constraints.Occcheck(Storage)
 
 
 print(Storage,passcond)
-
-
 
 # Test area
