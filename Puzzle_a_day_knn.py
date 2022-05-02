@@ -1,4 +1,4 @@
-from ast import For
+from ast import For, Global
 from pyexpat import XML_PARAM_ENTITY_PARSING_ALWAYS
 from signal import pthread_sigmask
 from turtle import Shape
@@ -24,10 +24,12 @@ passcond = 0
 # User Input and formatting for the array
 
 def dayInput():
-    dayInput = int(input("Gib den gesuchten Tag ein(DD)"))
+    global DayInput
+    DayInput = int(input("Gib den gesuchten Tag ein(DD)"))
 
 def monthInput():
-    monthInput = int(input("Gib den gesuchten Monat an(MM)"))
+    global MonthInput
+    MonthInput = int(input("Gib den gesuchten Monat an(MM)"))
 
 absolutePlace = (ysis,xsis,1)
 
@@ -179,31 +181,31 @@ class Constraints():
 dayInput()
 monthInput()
 
-if type(dayInput) == int:
-    while dayInput > 7:
-        dayInput -= 7
-        DayX += 1
-        DayY = dayInput
-    dayInput -= 1
-    DayY=dayInput
 
-if type(monthInput) == int:
-    if monthInput >6:
-        MonthX += 1
-        monthInput -= monthInput - 7
-        MonthY = monthInput
-    else:
-        monthInput -= 1
-        MonthY=monthInput
+while DayInput > 7:
+    DayInput -= 7
+    DayX += 1
+    DayY = dayInput
+    print(DayX,DayY)
+DayInput -= 1
+DayY=DayInput
+
+if MonthInput >6:
+    MonthX += 1
+    MonthInput -= 7
+    MonthY = MonthInput
+else:
+    monthInput -= 1
+    MonthY=monthInput
 
 #  changes the value to 9 to indicate the searched for date.
 arr[MonthX][MonthY][2]=9
 arr[MonthX][MonthY][1]=1
 arr[DayX][DayY][2]=9
 arr[DayX][DayY][1]=1
-print(arr)
+
 # generates the list of the shapes and changes it acordingly.
-print(DayX,DayY,MonthX,MonthY)
+
 ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
 
 
@@ -227,10 +229,10 @@ for x in range(MShape[1]):
         n += 1
     m+=1
 
-print(storage)
+
 temparray = np.array(storage)
 Storage = temparray.reshape(MShape[0],MShape[1])
-print(Storage)
+
 # compares the shape of the two arrays to make sure they line up.
 assert Storage.shape == Shape.shape
 
