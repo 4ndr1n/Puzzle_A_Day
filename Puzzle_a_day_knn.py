@@ -4,6 +4,7 @@ from signal import pthread_sigmask
 from turtle import Shape
 import numpy as np
 import pandas as pd
+from numpy import ndarray
 
 # Variables
 MonthX = 0
@@ -207,6 +208,19 @@ arr[DayX][DayY][1]=1
 # generates the list of the shapes and changes it acordingly.
 
 ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
+
+def sigmoid(x:ndarray) -> ndarray:
+    return 1/(1*np.exp(-x))
+
+w = np.array([1,1,1,1,1,1,1,1])
+
+x = np.array([1,2,3,4,5,6,7,8])
+
+N = np.dot(w,x)
+
+L = sigmoid(N)
+
+
 
 
 #  adds a shape to the matrix
