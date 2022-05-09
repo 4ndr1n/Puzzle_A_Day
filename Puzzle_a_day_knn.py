@@ -206,37 +206,6 @@ arr[MonthX][MonthY][1]=1
 arr[DayX][DayY][2]=9
 arr[DayX][DayY][1]=1
 
-# generates the list of the shapes and changes it acordingly.
-
-ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
-
-def sigmoid(x:ndarray) -> ndarray:
-    return 1/(1*np.exp(-x))
-
-def deriv(func: Callable[[ndarray], ndarray], input_: ndarray, diff: float = 0.0001)-> ndarray:
-    return(func(input_ + diff) - func(input_ - diff)) / (2*diff)
-
-Array_Function = Callable[[ndarray], ndarray]
-
-W = np.array([[1,1,1,1,1,1,1,1]])
-
-X = np.array([[1,2,3,4,5,6,7,8]])
-
-def matrix_function_backward_1(X: ndarray, W: ndarray,  sigma: Array_Function) -> ndarray:
-	assert X.shape[1] == W.shape[0]
-	N = np.dot(X, W)
-
-	S = sigma(N)
-
-	dSdN = deriv(sigma, N)
-
-	dNdX = np.transpose(W, (1, 0))
-
-	return np.dot(dSdN, dNdX)
-
-print(matrix_function_backward_1(X, W, sigmoid))
-
-
 #  adds a shape to the matrix
 n = 0
 Shape = ShapeList[n]
@@ -270,4 +239,34 @@ passcond = Constraints.Occcheck(Storage)
 
 print(Storage,passcond)
 
-# Test area
+
+# generates the list of the shapes and changes it acordingly.
+
+ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
+
+def sigmoid(x:ndarray) -> ndarray:
+    return 1/(1*np.exp(-x))
+
+def deriv(func: Callable[[ndarray], ndarray], input_: ndarray, diff: float = 0.0001)-> ndarray:
+    return(func(input_ + diff) - func(input_ - diff)) / (2*diff)
+
+Array_Function = Callable[[ndarray], ndarray]
+
+W = np.array([[1,1,1,1,1,1,1,1]])
+
+X = np.array([[1,2,3,4,5,6,7,8]])
+
+def matrix_function_backward_1(X: ndarray, W: ndarray,  sigma: Array_Function) -> ndarray:
+	assert X.shape[1] == W.shape[0]
+	N = np.dot(X, W)
+
+	S = sigma(N)
+
+	dSdN = deriv(sigma, N)
+
+	dNdX = np.transpose(W, (1, 0))
+
+	return np.dot(dSdN, dNdX)
+
+print(matrix_function_backward_1(X, W, sigmoid))
+
