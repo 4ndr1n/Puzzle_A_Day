@@ -5,6 +5,7 @@ from turtle import Shape
 import numpy as np
 import pandas as pd
 from numpy import ndarray
+from typing import Callable
 
 # Variables
 MonthX = 0
@@ -196,8 +197,8 @@ if MonthInput >6:
     MonthInput -= 7
     MonthY = MonthInput
 else:
-    monthInput -= 1
-    MonthY=monthInput
+    MonthInput -= 1
+    MonthY=MonthInput
 
 #  changes the value to 9 to indicate the searched for date.
 arr[MonthX][MonthY][2]=9
@@ -212,15 +213,28 @@ ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,fil
 def sigmoid(x:ndarray) -> ndarray:
     return 1/(1*np.exp(-x))
 
-w = np.array([1,1,1,1,1,1,1,1])
+def deriv(func: Callable[[ndarray], ndarray], input_: ndarray, diff: float = 0.0001)-> ndarray:
+    return(func(input_ + diff) - func(input_ - diff)) / (2*diff)
 
-x = np.array([1,2,3,4,5,6,7,8])
+Array_Function = Callable[[ndarray], ndarray]
 
-N = np.dot(w,x)
+W = np.array([[1,1,1,1,1,1,1,1]])
 
-L = sigmoid(N)
+X = np.array([[1,2,3,4,5,6,7,8]])
 
+def matrix_function_backward_1(X: ndarray, W: ndarray,  sigma: Array_Function) -> ndarray:
+	assert X.shape[1] == W.shape[0]
+	N = np.dot(X, W)
 
+	S = sigma(N)
+
+	dSdN = deriv(sigma, N)
+
+	dNdX = np.transpose(W, (1, 0))
+
+	return np.dot(dSdN, dNdX)
+
+print(matrix_function_backward_1(X, W, sigmoid))
 
 
 #  adds a shape to the matrix
