@@ -1,5 +1,5 @@
-
 from ast import For, Global
+from email.policy import default
 from pyexpat import XML_PARAM_ENTITY_PARSING_ALWAYS
 from signal import pthread_sigmask
 from turtle import Shape
@@ -164,7 +164,7 @@ class Constraints():
                 else:
                     count += 1
                 w += 1
-        if w == 2:
+        if w == 0:
             return 1
         else:
             return 0
@@ -200,6 +200,19 @@ if MonthInput >6:
 else:
     MonthInput -= 1
     MonthY=MonthInput
+
+# incrementer
+
+def incrementer():
+    if absolutePlace[1] == 7 and absolutePlace[0] >= 2:
+        absolutePlace[0] += 1
+        absolutePlace[1] -= 6
+    elif absolutePlace[1] == 6 and absolutePlace[0] >= 0:
+        absolutePlace[0] += 1
+        absolutePlace[1] -= 5
+    else:
+        absolutePlace[1] += 1
+
 
 #  changes the value to 9 to indicate the searched for date.
 arr[MonthX][MonthY][2]=9
@@ -250,11 +263,24 @@ def adder(n):
 
 def main():
 
+    dayInput()
+    monthInput()
 
-dayInput()
-monthInput()
+    for i in range(43):
+        x, y = absolutePlace[0], absolutePlace[1]
+        if Constraints.Occupancie(x, y) == 0:
+            adder(n)
+            n += 1
+            incrementer()
+        else:
+            incrementer()
+        
 
-for x in ShapeList:
-    adder(n)
-    n += 1
 
+test = open(r'/Users/Andrin/Desktop/newdoc.csv','w')
+
+stringarray = ["mol", "luege"]
+
+x = "{} ; {}"
+print(x.format(stringarray[0],stringarray[1]))
+test.write(x.format(stringarray[0],stringarray[1]))
