@@ -24,18 +24,12 @@ storage = []
 
 passcond = 0
 
-n = 0
-# User Input and formatting for the array
-
-def dayInput():
-    global DayInput
-    DayInput = int(input("Gib den gesuchten Tag ein(DD)"))
-
-def monthInput():
-    global MonthInput
-    MonthInput = int(input("Gib den gesuchten Monat an(MM)"))
-
 absolutePlace = (ysis,xsis,1)
+n = 0
+#  changes the value to 9 to indicate the searched for date.
+
+arr[DayX][DayY][2]=9
+arr[DayX][DayY][1]=1
 
 # Spielfeld als 3D Array implementiert. 1D = X-Achse, 2D = Y-Achse, 
 # 3D = Gefüllt oder nicht. 9 ist Spielfeldrand in der zweiten Spalte. 
@@ -150,6 +144,51 @@ Sshape ={1:np.array([[1,1,0], [0,1,0], [0,1,1]]),
         3:np.array([[0,1,1], [0,1,0], [1,1,0]]),
         4:np.array([[1,0,0], [1,1,1], [0,0,1]])}
 
+# generates the list of the shapes and changes it acordingly.
+
+ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
+
+# Formats the user-input to fit the array we use to represent the playingfield.
+
+def dayInput():
+    # Input gets checked and saved
+    x = 1
+    while(x == 1):
+        DayInput = int(input("Gib den gesuchten Tag ein(DD)"))
+        if DayInput >=1 and DayInput <=31:
+            x = 0
+        else:
+            print("Enter a valid day (1-31)")
+    # Input gets reformatted
+    while DayInput > 7:
+        DayInput -= 7
+        DayX += 1
+        DayY = dayInput
+        print(DayX,DayY)
+    DayInput -= 1
+    DayY=DayInput
+
+def monthInput():
+    # Input gets checked and saved
+    x = 1
+    while(x == 1):
+        MonthInput = int(input("Gib den gesuchten Monat an(MM)"))
+        if MonthInput >=1 and MonthInput <=12:
+            x = 0
+        else:
+            print("Enter a valid month (1-12)")
+    # Input gets reformatted
+    if MonthInput >6:
+        MonthX += 1
+        MonthInput -= 7
+        MonthY = MonthInput
+    else:
+        MonthInput -= 1
+        MonthY=MonthInput
+    # Input gets inserted into "arr"
+    arr[MonthX][MonthY][2]=9
+    arr[MonthX][MonthY][1]=1
+
 # implementierung von constraints
 
 ## Counts the number of open squares. If there are only two, 1 is returned. 
@@ -183,24 +222,6 @@ class Constraints():
                 else:
                     return True
 
-
-# Formats the user-input to fit the array we use to represent the playingfield.
-while DayInput > 7:
-    DayInput -= 7
-    DayX += 1
-    DayY = dayInput
-    print(DayX,DayY)
-DayInput -= 1
-DayY=DayInput
-
-if MonthInput >6:
-    MonthX += 1
-    MonthInput -= 7
-    MonthY = MonthInput
-else:
-    MonthInput -= 1
-    MonthY=MonthInput
-
 # incrementer
 
 def incrementer():
@@ -212,17 +233,6 @@ def incrementer():
         absolutePlace[1] -= 5
     else:
         absolutePlace[1] += 1
-
-
-#  changes the value to 9 to indicate the searched for date.
-arr[MonthX][MonthY][2]=9
-arr[MonthX][MonthY][1]=1
-arr[DayX][DayY][2]=9
-arr[DayX][DayY][1]=1
-
-# generates the list of the shapes and changes it acordingly.
-
-ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
 
 #  adds a shape to the matrix
 def adder(n):
@@ -258,9 +268,6 @@ def adder(n):
 
     print(Storage,passcond)
 
-# Test area
-
-
 def main():
 
     dayInput()
@@ -274,9 +281,12 @@ def main():
             incrementer()
         else:
             incrementer()
-        
+main()
+print(arr)
 
 
+
+"""
 test = open(r'/Users/Andrin/Desktop/newdoc.csv','w')
 
 stringarray = ["mol", "luege"]
@@ -284,3 +294,4 @@ stringarray = ["mol", "luege"]
 x = "{} ; {}"
 print(x.format(stringarray[0],stringarray[1]))
 test.write(x.format(stringarray[0],stringarray[1]))
+"""
