@@ -1,1 +1,0 @@
-test = open(r'/Users/Andrin/Desktop/newdoc.csv','w')
