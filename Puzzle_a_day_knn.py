@@ -24,6 +24,7 @@ storage = []
 
 passcond = 0
 
+n = 0
 # User Input and formatting for the array
 
 def dayInput():
@@ -173,6 +174,7 @@ class Constraints():
             return 1
         else:
             return 0
+# Checks if any of the numbers in the array "Storage" is equal to two which would indicate an overlap.
     def Occcheck(Storage):
         for x in Storage:
             for y in x:
@@ -181,8 +183,6 @@ class Constraints():
                 else:
                     return True
 
-dayInput()
-monthInput()
 
 # Formats the user-input to fit the array we use to represent the playingfield.
 while DayInput > 7:
@@ -211,40 +211,50 @@ arr[DayX][DayY][1]=1
 
 ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,filledPshape,brokenYshape,Sshape])
 
-
-
 #  adds a shape to the matrix
-n = 0
-Shape = ShapeList[n]
-Shape = Shape.get(1)
+def adder(n):
+    
+    Shape = ShapeList[n]
+    Shape = Shape.get(1)
 
-MShape = Shape.shape
+    MShape = Shape.shape
 
-ap0 = absolutePlace[0]
+    ap0 = absolutePlace[0]
 
-ap1 = absolutePlace[1]
+    ap1 = absolutePlace[1]
 
-m = 0
+    m = 0
 
-for x in range(MShape[1]):
-    n = 0
-    for y in range(MShape[0]):
-        storage.append(Constraints.Occupancie((ap0+m),(ap1+n)))
-        n += 1
-    m+=1
+    for x in range(MShape[1]):
+        n = 0
+        for y in range(MShape[0]):
+            storage.append(Constraints.Occupancie((ap0+m),(ap1+n)))
+            n += 1
+        m+=1
 
-temparray = np.array(storage)
-Storage = temparray.reshape(MShape[0],MShape[1])
+    temparray = np.array(storage)
+    Storage = temparray.reshape(MShape[0],MShape[1])
 
-# compares the shape of the two arrays to make sure they line up.
-assert Storage.shape == Shape.shape
+    # compares the shape of the two arrays to make sure they line up.
+    assert Storage.shape == Shape.shape
 
-Storage += Shape
+    Storage += Shape
 
-passcond = Constraints.Occcheck(Storage)
+    passcond = Constraints.Occcheck(Storage)
 
 
-print(Storage,passcond)
+    print(Storage,passcond)
 
 # Test area
+
+
+def main():
+
+
+dayInput()
+monthInput()
+
+for x in ShapeList:
+    adder(n)
+    n += 1
 
