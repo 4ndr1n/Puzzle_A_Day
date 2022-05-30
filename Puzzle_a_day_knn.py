@@ -141,17 +141,10 @@ dayarr = np.arange(1,32)
 
 montharr = np.arange(1,13)
 
-def dayInput():
-    x = 1
+def dayInput(day):
+    DayInput = day
     DayX = 2
     DayY = 0
-    # Input gets checked and saved
-    while(x == 1):
-        DayInput = int(input("Enter the day you want to find(DD)"))
-        if DayInput >=1 and DayInput <=31:
-            x = 0
-        else:
-            print("Enter a valid day (1-31)")
     # Input gets reformatted
     while DayInput > 7:
         DayInput -= 7
@@ -163,17 +156,11 @@ def dayInput():
     arr[DayX][DayY][2]=9
     arr[DayX][DayY][1]=1
 
-def monthInput():
-    x = 1
+def monthInput(month):
+    MonthInput = month
     MonthX = 0
     MonthY = 0
     # Input gets checked and saved
-    while(x == 1):
-        MonthInput = int(input("Enter the month you want to find(MM)"))
-        if MonthInput >=1 and MonthInput <=12:
-            x = 0
-        else:
-            print("Enter a valid month (1-12)")
     # Input gets reformatted
     if MonthInput >6:
         MonthX += 1
@@ -268,8 +255,10 @@ def adder(n):
 
 def main():
 
-    dayInput()
-    monthInput()
+    for i in range(montharr):
+        for y in range(dayarr):
+            dayInput(y)
+            monthInput(i)
 
     for i in range(43):
         x, y = absolutePlace[0], absolutePlace[1]
