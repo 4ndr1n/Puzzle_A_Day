@@ -1,4 +1,5 @@
-
+import numpy as np
+"""
 test = open(r'/Users/Andrin/Desktop/newdoc.csv','w')
 
 stringarray = ["mol", "luege"]
@@ -6,7 +7,7 @@ stringarray = ["mol", "luege"]
 x = "{} ; {}"
 print(x.format(stringarray[0],stringarray[1]))
 test.write(x.format(stringarray[0],stringarray[1]))
-
+"""
 
 def dayInput():
     x = 1
@@ -17,4 +18,7 @@ def dayInput():
         else:
             print("Enter a valid day (1-31)")
 
-dayInput()
+
+
+dayarr = np.arange(1,32)
+print(dayarr)

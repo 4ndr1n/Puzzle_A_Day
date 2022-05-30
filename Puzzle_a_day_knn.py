@@ -9,27 +9,14 @@ from numpy import ndarray
 from typing import Callable
 
 # Variables
-MonthX = 0
-MonthY = 0
-
-DayX = 2
-DayY = 0
-
-tempVal = 0
 
 xsis = 0
 ysis = 0
-
-storage = []
 
 passcond = 0
 
 absolutePlace = (ysis,xsis,1)
 n = 0
-#  changes the value to 9 to indicate the searched for date.
-
-arr[DayX][DayY][2]=9
-arr[DayX][DayY][1]=1
 
 # Spielfeld als 3D Array implementiert. 1D = X-Achse, 2D = Y-Achse, 
 # 3D = Gefüllt oder nicht. 9 ist Spielfeldrand in der zweiten Spalte. 
@@ -150,11 +137,17 @@ ShapeList = np.array([Cshape,BigLshape,smallLshape,brokenTshape,FilledOShape,fil
 
 # Formats the user-input to fit the array we use to represent the playingfield.
 
+dayarr = np.arange(1,32)
+
+montharr = np.arange(1,13)
+
 def dayInput():
-    # Input gets checked and saved
     x = 1
+    DayX = 2
+    DayY = 0
+    # Input gets checked and saved
     while(x == 1):
-        DayInput = int(input("Gib den gesuchten Tag ein(DD)"))
+        DayInput = int(input("Enter the day you want to find(DD)"))
         if DayInput >=1 and DayInput <=31:
             x = 0
         else:
@@ -164,15 +157,19 @@ def dayInput():
         DayInput -= 7
         DayX += 1
         DayY = dayInput
-        print(DayX,DayY)
     DayInput -= 1
     DayY=DayInput
+    # Input gets inserted into "arr"
+    arr[DayX][DayY][2]=9
+    arr[DayX][DayY][1]=1
 
 def monthInput():
-    # Input gets checked and saved
     x = 1
+    MonthX = 0
+    MonthY = 0
+    # Input gets checked and saved
     while(x == 1):
-        MonthInput = int(input("Gib den gesuchten Monat an(MM)"))
+        MonthInput = int(input("Enter the month you want to find(MM)"))
         if MonthInput >=1 and MonthInput <=12:
             x = 0
         else:
@@ -236,7 +233,8 @@ def incrementer():
 
 #  adds a shape to the matrix
 def adder(n):
-    
+    storage = []
+
     Shape = ShapeList[n]
     Shape = Shape.get(1)
 
