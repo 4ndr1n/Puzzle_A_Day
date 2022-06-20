@@ -1,3 +1,4 @@
+from matplotlib.pyplot import axis
 import numpy as np
 """
 test = open(r'/Users/Andrin/Desktop/newdoc.csv','w')
@@ -100,13 +101,17 @@ Februar = [2]
 thirtiones = np.concatenate((np.arange(1,8,2), np.arange(8,13,2)),axis=0)
 thirties = np.concatenate((np.arange(4,7,2),np.arange(9,13,2)),axis=0)
 
-dates = [],[]
+dates = np.array([],ndmin=0)
 
+print(dates)
 for i in thirtiones:
     for y in ddayarr:
-        
-        
-        dates.append(dayInput(y),monthInput(i))
+        dayInput(y)
+        monthInput(i)
+        x = np.array(y,i)
+        np.vstack((dates,x))
+
+print(dates)
 
 for i in thirties:
     for y in sdayarr:
