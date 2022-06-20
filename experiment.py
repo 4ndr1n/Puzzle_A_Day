@@ -93,12 +93,23 @@ def monthInput(month):
     arr[MonthX][MonthY][1]=1
 
 
-dayarr = np.arange(1,32)
+ddayarr = np.arange(1,32)
+sdayarr = np.arange(1,31)
 
-montharr = np.arange(1,13)
+Februar = [2]
+thirtiones = np.concatenate((np.arange(1,8,2), np.arange(8,13,2)),axis=0)
+thirties = np.concatenate((np.arange(4,7,2),np.arange(9,13,2)),axis=0)
 
-for i in montharr:
-    for y in dayarr:
+dates = [],[]
+
+for i in thirtiones:
+    for y in ddayarr:
+        
+        
+        dates.append(dayInput(y),monthInput(i))
+
+for i in thirties:
+    for y in sdayarr:
         dayInput(y)
         monthInput(i)
         print(y, i)
