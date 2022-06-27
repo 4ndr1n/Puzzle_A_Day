@@ -108,6 +108,7 @@ for i in thirtiones:
     for y in ddayarr:
         dayInput(y)
         monthInput(i)
+        np.reshape((i, 0))
         x = np.array(y,i)
         np.vstack((dates,x))
 
@@ -118,4 +119,3 @@ for i in thirties:
         dayInput(y)
         monthInput(i)
         print(y, i)
-        
